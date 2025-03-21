@@ -1,0 +1,14 @@
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\bin\Debug\net7.0\PokerAnalyzer.exe
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\bin\Debug\net7.0\PokerAnalyzer.deps.json
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\bin\Debug\net7.0\PokerAnalyzer.runtimeconfig.json
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\bin\Debug\net7.0\PokerAnalyzer.dll
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\bin\Debug\net7.0\PokerAnalyzer.pdb
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.AssemblyInfoInputs.cache
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.AssemblyInfo.cs
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.csproj.CoreCompileInputs.cache
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.dll
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\refint\PokerAnalyzer.dll
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.pdb
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\PokerAnalyzer.genruntimeconfig.cache
+c:\Users\pc\Desktop\PokerAnalyzer\PokerAnalyzer\obj\Debug\net7.0\ref\PokerAnalyzer.dll
