@@ -3,7 +3,30 @@ string[] file = LoadAllFilesToArray();
 
 List<Hand> Listofhands = new();
 Listofhands = LoadHands(file);
+
+
 System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
+foreach (var hand in Listofhands)
+{
+    HandCalculations.DefinePlayersAction(hand);
+
+    System.Console.WriteLine(hand.tag);
+    foreach (var player in hand.ListofPlayers)
+    {
+        if (player.Value.action == Action.RFI)
+        {
+            System.Console.WriteLine(player.Key);
+        }
+    }
+    // List<Player> rfiplayers = hand.ListofPlayers
+    // .Where(x => x.Value.action == Action.RFI)
+    // .Select(x => x.Value).ToList();
+    // if (rfiplayers.Count != 0) System.Console.WriteLine("RFI : " + rfiplayers[0].name);
+
+}
+
+
+
 string[] LoadAllFilesToArray()
 {
     string rootpath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
