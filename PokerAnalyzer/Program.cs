@@ -3,11 +3,13 @@ string[] file = LoadAllFilesToArray();
 
 List<Hand> Listofhands = new();
 Listofhands = LoadHands(file);
-System.Console.WriteLine(Listofhands[0].hand[0]);
+
 
 foreach (var hand in Listofhands)
 {
+    
     HandCalculations.DefinePlayersAction(hand);
+  
 }
 HandCalculations.Calculate_RFI("utg", Listofhands);
 System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
@@ -45,24 +47,42 @@ List<Hand> LoadHands(string[] file)
         bool isthereflop = false;
         if (file[i] == "")
         {
-            int length = i - index_holder;
-            string[] temp = new string[length];
-            for (int j = index_holder + 1; j < i; j++)
+            if (file[index_holder + 1].Contains("ShortDeck") || file[index_holder + 1].Contains("PLO"))
             {
-                temp[j - index_holder - 1] = file[j];
-                FindIndexes(ref flop_index, ref preflop_index, j, i, index_holder);
-                if (file[j].Contains("FLOP")) isthereflop = true;
+                System.Console.WriteLine(file[index_holder + 1]);
+                i += 3;
+                index_holder++;
+                
             }
-            flop_index = !isthereflop ? -1 : flop_index;
-            hand = new(temp, flop_index, preflop_index);
-            Listofhands.Add(hand);
-            i++;
-            index_holder = i;
+            else
+            {
+                int length = i - index_holder;
+                string[] temp = new string[length];
+                for (int j = index_holder + 1; j < i; j++)
+                {
+                    temp[j - index_holder - 1] = file[j];
+                    FindIndexes(ref flop_index, ref preflop_index, j, i, index_holder);
+                    if (file[j].Contains("FLOP")) isthereflop = true;
+                }
+                flop_index = !isthereflop ? -1 : flop_index;
+                hand = new(temp, flop_index, preflop_index, CalculateBlind(file, index_holder));
+                Listofhands.Add(hand);
+                i++;
+                index_holder = i;
+            }
         }
-         
+
     }
-    
+
     return Listofhands;
+
+}
+float CalculateBlind(string[] hand, int index_holder)
+{
+    int length = hand[index_holder + 1].IndexOf(')') - 1 - hand[index_holder + 1].IndexOf('/');
+    
+    int indexstart = hand[index_holder + 1].IndexOf('/') + 1;
+    return float.Parse(hand[index_holder + 1].Substring(indexstart, length).Replace(",", "").Replace(" ", ""));
 
 }
 void FindIndexes(ref int flop_index, ref int preflop_index, int j, int i, int index_holder)

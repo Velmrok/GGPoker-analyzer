@@ -16,31 +16,52 @@ public static class HandCalculations
         bool hasanyoneRFI = false;
         float[] allhands = { 0, 0, 0,    0, 0, 0,    0, 0, 0 };
         float[] openedhands = { 0, 0, 0,    0, 0, 0,    0, 0, 0 };
+
+        float minstack = 100;
+        float maxstack = 200;
+
         foreach (var hand in hands)
         {
             for (int i = 0; i < 8; i++)
             {
-                if (hand.ListofPlayers["sb"].action == Action.Limp) allhands[7]++;
-                if (hand.ListofPlayers.ContainsKey(PositionNumbersDictionary[i]) &&
-            hand.ListofPlayers[PositionNumbersDictionary[i]].action == Action.RFI)
+                if (hand.ListofPlayers["sb"].action == Action.Limp &&
+            hand.ListofPlayers["sb"].bb_stack > minstack &&
+            hand.ListofPlayers["sb"].bb_stack < maxstack)
                 {
-                    hasanyoneRFI = true;
-                    openedhands[i]++;
-                    for (int j = 9 - hand.table_limit; j < i + 1; j++)
+                    allhands[7]++;
+                    break;
+                }
+                if (hand.ListofPlayers.ContainsKey(PositionNumbersDictionary[i]) &&
+            hand.ListofPlayers[PositionNumbersDictionary[i]].bb_stack > minstack &&
+            hand.ListofPlayers[PositionNumbersDictionary[i]].bb_stack < maxstack
+            )
+                {
+
+
+                    if (hand.ListofPlayers.ContainsKey(PositionNumbersDictionary[i]) &&
+                hand.ListofPlayers[PositionNumbersDictionary[i]].action == Action.RFI)
                     {
-                        allhands[j]++;
+                        hasanyoneRFI = true;
+                        openedhands[i]++;
+                        for (int j = 9 - hand.table_limit; j < i + 1; j++)
+                        {
+                            allhands[j]++;
+                        }
                     }
+
+
                 }
             }
-            if (!hasanyoneRFI && !(hand.ListofPlayers["sb"].action == Action.Limp))
+            if (!hasanyoneRFI && !(hand.ListofPlayers["sb"].action == Action.Limp) &&
+             hand.ListofPlayers["sb"].bb_stack > minstack &&
+            hand.ListofPlayers["sb"].bb_stack < maxstack)
             {
-                for (int j = 9-hand.table_limit; j <8 ; j++)
+                for (int j = 9 - hand.table_limit; j < 8; j++)
                 {
                     allhands[j]++;
                 }
             }
-           
-           
+
         }
         for (int i = 0; i < 9; i++)
         {
@@ -58,10 +79,10 @@ public static class HandCalculations
         // RFI
         for (int i = handOBJ.preflop_index; i < handOBJ.flop_index; i++)
         {
-
+          
 
             char action = hand[i][hand[i].IndexOf(':') + 2];
-
+        
             if (action == 'r')
             {
                
@@ -69,8 +90,16 @@ public static class HandCalculations
 
                 break;
             }
-            if (i == handOBJ.flop_index - 1)
+            if (action == 'c' && i < handOBJ.flop_index - 3)
             {
+                
+                //handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.Call;
+                return;
+            }
+            if (i == handOBJ.flop_index - 3 && action == 'c')
+            {
+                
+                
                 handOBJ.ListofPlayers["sb"].action = Action.Limp;
             }
 
