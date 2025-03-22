@@ -11030,8 +11030,8 @@ Seat 1: c0edb2ef (6,774 in chips)
 Seat 2: 148c23ae (7,913 in chips)
 Seat 3: 62a1d8c0 (9,348 in chips)
 Seat 4: Hero (20,265 in chips)
-Seat 5: 8a4e9d6f (10,000 in chips)
-Seat 6: 8638c512 (13,750 in chips)
+Seat 5: 8a4e9d6f (10,000 in chips) 
+Seat 6: 8638c512 (13,750 in chips) btn
 8a4e9d6f: posts the ante 30
 Hero: posts the ante 30
 8638c512: posts the ante 30
@@ -11354,3 +11354,4 @@ Seat 3: 62a1d8c0 folded before Flop
 Seat 4: Hero folded before Flop
 Seat 5: f8250ce0 (button) showed [2c Kc] and won (3,670) with Sixes-High Straight
 Seat 6: 8638c512 (small blind) folded before Flop
+

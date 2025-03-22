@@ -1,37 +1,27 @@
 ﻿
-string[] file = LoadFile();
+string[] file = LoadAllFilesToArray();
 
 List<Hand> Listofhands = new();
 Listofhands = LoadHands(file);
 System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
- string[] LoadFile()
+string[] LoadAllFilesToArray()
+{
+    string rootpath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+    string folderPath = Path.Combine(rootpath, "Data");
+
+    // Pobranie wszystkich plików TXT w katalogu
+    string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+    var allLines = new List<string>();
+
+    foreach (string path in files)
     {
-        string rootpath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-        string path = Path.Combine(rootpath, "Data", "test2.txt");
-
-        if (File.Exists(path))
-        {
-            // Używamy StreamReader do odczytu linii po linii
-            var lines = new List<string>();
-            using (var reader = new StreamReader(path))
-            {
-                string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                lines.Add(line);
-                    
-                }
-            }
-        
-
-            return lines.ToArray(); // Zwracamy tablicę stringów
-            
-        }
-        else
-        {
-            return null; // Plik nie istnieje
-        }
+        string[] lines = File.ReadAllLines(path); // Wczytuje cały plik do pamięci
+        allLines.AddRange(lines); // Dodaje linie do listy
     }
+
+    return allLines.ToArray(); // Konwersja listy na tablicę
+}
 List<Hand> LoadHands(string[] file)
 {
     List<Hand> Listofhands = new();
