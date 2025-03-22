@@ -3,28 +3,14 @@ string[] file = LoadAllFilesToArray();
 
 List<Hand> Listofhands = new();
 Listofhands = LoadHands(file);
+System.Console.WriteLine(Listofhands[0].hand[0]);
 
-
-System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
 foreach (var hand in Listofhands)
 {
     HandCalculations.DefinePlayersAction(hand);
-
-    System.Console.WriteLine(hand.tag);
-    foreach (var player in hand.ListofPlayers)
-    {
-        if (player.Value.action == Action.RFI)
-        {
-            System.Console.WriteLine(player.Key);
-        }
-    }
-    // List<Player> rfiplayers = hand.ListofPlayers
-    // .Where(x => x.Value.action == Action.RFI)
-    // .Select(x => x.Value).ToList();
-    // if (rfiplayers.Count != 0) System.Console.WriteLine("RFI : " + rfiplayers[0].name);
-
 }
-
+HandCalculations.Calculate_RFI("utg", Listofhands);
+System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
 
 
 string[] LoadAllFilesToArray()
@@ -45,6 +31,8 @@ string[] LoadAllFilesToArray()
 
     return allLines.ToArray(); // Konwersja listy na tablicę
 }
+
+// TERRIBLE CODE, NEEDS REWRITING
 List<Hand> LoadHands(string[] file)
 {
     List<Hand> Listofhands = new();
@@ -54,6 +42,7 @@ List<Hand> LoadHands(string[] file)
     int flop_index = 0;
     for (int i = 0; i < file.Length; i++)
     {
+        bool isthereflop = false;
         if (file[i] == "")
         {
             int length = i - index_holder;
@@ -62,8 +51,9 @@ List<Hand> LoadHands(string[] file)
             {
                 temp[j - index_holder - 1] = file[j];
                 FindIndexes(ref flop_index, ref preflop_index, j, i, index_holder);
-                
+                if (file[j].Contains("FLOP")) isthereflop = true;
             }
+            flop_index = !isthereflop ? -1 : flop_index;
             hand = new(temp, flop_index, preflop_index);
             Listofhands.Add(hand);
             i++;
@@ -86,7 +76,7 @@ void FindIndexes(ref int flop_index, ref int preflop_index, int j, int i, int in
             if (file[j - 1].Contains("shows")) flop_index = -1;
             else flop_index = j - index_holder;
         }
-        if (file[j].Contains("returned")) flop_index = -1;
+      
         
             
         

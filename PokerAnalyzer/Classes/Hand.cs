@@ -31,14 +31,14 @@ public class Hand
     }
     void FindPlayerCount()
     {
-        for (int i = 2; i < 10; i++)
+        for (int i = 2; i < 12; i++)
         {
-            if (!hand[i + 1].Contains("Seat"))
+            if (hand[i].Contains("Seat") && hand[i].Contains("chips"))
             {
-              
-                table_limit = int.Parse(hand[i][5].ToString());
-                  System.Console.WriteLine(table_limit);
-                break;
+
+                table_limit++;
+                
+                
         }
         }
         

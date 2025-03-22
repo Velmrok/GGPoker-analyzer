@@ -5,5 +5,6 @@ public enum Action
     RFI,
     Tbet,
     Fbet,
+    Limp
 
 }
