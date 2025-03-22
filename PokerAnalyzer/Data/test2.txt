@@ -11354,5 +11354,3 @@ Seat 3: 62a1d8c0 folded before Flop
 Seat 4: Hero folded before Flop
 Seat 5: f8250ce0 (button) showed [2c Kc] and won (3,670) with Sixes-High Straight
 Seat 6: 8638c512 (small blind) folded before Flop
-
-

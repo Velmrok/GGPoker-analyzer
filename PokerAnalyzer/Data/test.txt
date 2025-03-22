@@ -668,4 +668,3 @@ Seat 6: b91e3d73 (small blind) folded before Flop
 Seat 7: bb0ba16 (big blind) folded before Flop
 Seat 8: 849b40ad showed [Kh Js] and won (21,304) with Three Kings
 
-
