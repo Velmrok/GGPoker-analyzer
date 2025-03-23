@@ -37,14 +37,9 @@ public class Hand
         {
             if (hand[i].Contains("Seat") && hand[i].Contains("chips"))
             {
-
                 table_limit++;
-                
-                
+            }
         }
-        }
-        
-
     }
     Dictionary<string, Player> CreatePlayerDict()
     {
@@ -61,7 +56,7 @@ public class Hand
 
                 if (!(number == ""))
                 {
-                    player = new(int.Parse(number), name, HandCalculations.DefinePlayerSeat(i, table_limit, hand),blind);
+                    player = new(int.Parse(number), name, DefPlayerSeat.DefinePlayerSeat(i, table_limit, hand),blind);
                     
                     dict.Add(player.position, player);
                 }

@@ -11,66 +11,7 @@ public static class HandCalculations
         {7,"sb"},
         {8,"bb"},
         };
-    public static void Calculate_RFI(string position, List<Hand> hands)
-    {
-        bool hasanyoneRFI = false;
-        float[] allhands = { 0, 0, 0,    0, 0, 0,    0, 0, 0 };
-        float[] openedhands = { 0, 0, 0,    0, 0, 0,    0, 0, 0 };
-
-        float minstack = 100;
-        float maxstack = 200;
-
-        foreach (var hand in hands)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                if (hand.ListofPlayers["sb"].action == Action.Limp &&
-            hand.ListofPlayers["sb"].bb_stack > minstack &&
-            hand.ListofPlayers["sb"].bb_stack < maxstack)
-                {
-                    allhands[7]++;
-                    break;
-                }
-                if (hand.ListofPlayers.ContainsKey(PositionNumbersDictionary[i]) &&
-            hand.ListofPlayers[PositionNumbersDictionary[i]].bb_stack > minstack &&
-            hand.ListofPlayers[PositionNumbersDictionary[i]].bb_stack < maxstack
-            )
-                {
-
-
-                    if (hand.ListofPlayers.ContainsKey(PositionNumbersDictionary[i]) &&
-                hand.ListofPlayers[PositionNumbersDictionary[i]].action == Action.RFI)
-                    {
-                        hasanyoneRFI = true;
-                        openedhands[i]++;
-                        for (int j = 9 - hand.table_limit; j < i + 1; j++)
-                        {
-                            allhands[j]++;
-                        }
-                    }
-
-
-                }
-            }
-            if (!hasanyoneRFI && !(hand.ListofPlayers["sb"].action == Action.Limp) &&
-             hand.ListofPlayers["sb"].bb_stack > minstack &&
-            hand.ListofPlayers["sb"].bb_stack < maxstack)
-            {
-                for (int j = 9 - hand.table_limit; j < 8; j++)
-                {
-                    allhands[j]++;
-                }
-            }
-
-        }
-        for (int i = 0; i < 9; i++)
-        {
-            System.Console.WriteLine($"{PositionNumbersDictionary[i]}" +
-            $"    RFI - {openedhands[i] * 100f/allhands[i]} %"+
-            $"              //////           opened:  {openedhands[i]}      all : {allhands[i]}" );
-        }
-       
-    }
+   
     public static void DefinePlayersAction(Hand handOBJ)
     {
        
@@ -93,7 +34,7 @@ public static class HandCalculations
             if (action == 'c' && i < handOBJ.flop_index - 3)
             {
                 
-                //handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.Call;
+                handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.Call;
                 return;
             }
             if (i == handOBJ.flop_index - 3 && action == 'c')
@@ -122,55 +63,6 @@ public static class HandCalculations
 
 
     }
-    public static string DefinePlayerSeat(int i, int table_limit, string[] hand)
-    {
-        int seat = i - 1;
-        int button_seat = 0;
-
-        for (int j = 1; j < hand[1].Length; j++)
-        {
-            if (hand[1][j - 1] == 'i' && hand[1][j] == 's')
-            {
-                button_seat = int.Parse(hand[1][j - 3].ToString());
-                break;
-            }
-        }
-        for (int j = 2; j < 12; j++)
-        {
-            if (hand[j].Contains($"Seat {button_seat}"))
-            {
-                button_seat = j;
-                break;
-            }
-        }
-        
-        if (seat < button_seat) seat += table_limit;
-        //System.Console.WriteLine(seat - button_seat);
-        switch (seat - button_seat)
-        {
-            case 0:
-                return "btn";
-            case 1:
-                return "sb";
-            case 2:
-                return "bb";
-            case 3:
-                return PositionNumbersDictionary[9-table_limit];
-            case 4:
-               return PositionNumbersDictionary[10-table_limit];
-            case 5:
-             return PositionNumbersDictionary[11-table_limit];
-            case 6:
-               return PositionNumbersDictionary[12-table_limit];
-            case 7:
-                return PositionNumbersDictionary[13 - table_limit];
-            case 8:
-                return "co";
-            default:
-                break;
-        }
-        return "ERROR";
-        
-    }
+   
 
 }
