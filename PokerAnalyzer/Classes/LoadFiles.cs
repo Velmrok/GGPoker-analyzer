@@ -3,7 +3,7 @@ public class LoadFiles
     public static string[] LoadAllFilesToArray()
 {
     string rootpath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-    string folderPath = Path.Combine(rootpath, "Datatest");
+    string folderPath = Path.Combine(rootpath, "Data");
 
     // Pobranie wszystkich plików TXT w katalogu
     string[] files = Directory.GetFiles(folderPath, "*.txt");

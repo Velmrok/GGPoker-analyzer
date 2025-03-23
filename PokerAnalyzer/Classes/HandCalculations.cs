@@ -10,6 +10,7 @@ public static class HandCalculations
         {6,"btn"},
         {7,"sb"},
         {8,"bb"},
+        {9,"??"},
         };
    
     public static void DefinePlayersAction(Hand handOBJ)
@@ -18,30 +19,46 @@ public static class HandCalculations
         int changer = 9 - handOBJ.table_limit;
         string[] hand = handOBJ.hand;
         // RFI
-        for (int i = handOBJ.preflop_index; i < handOBJ.flop_index; i++)
+        int numberofiteration = handOBJ.preflop_index + handOBJ.table_limit;
+      
+        
+        for (int i = handOBJ.preflop_index; i < numberofiteration-1; i++)
         {
-          
+
 
             char action = hand[i][hand[i].IndexOf(':') + 2];
-        
+          
             if (action == 'r')
             {
-               
+                if (hand[i].Contains("all-in"))
+                {
+                    handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.OpenShove;
+                    break;
+                }
                 handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.RFI;
 
                 break;
             }
-            if (action == 'c' && i < handOBJ.flop_index - 3)
+            if (action == 'c' && i < numberofiteration-2)
             {
-                
+
+            if (hand[i].Contains("all-in"))
+                    {
+                    handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.OpenShove;
+                    return;
+                }
                 handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.Call;
                 return;
             }
-            if (i == handOBJ.flop_index - 3 && action == 'c')
+            if (i == numberofiteration-2 && action == 'c')
             {
+
+                if (hand[i].Contains("all-in"))
+                {
+                    handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.OpenShove;
+                    
+                }else handOBJ.ListofPlayers["sb"].action = Action.Limp;
                 
-                
-                handOBJ.ListofPlayers["sb"].action = Action.Limp;
             }
 
         }

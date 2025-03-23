@@ -12,8 +12,8 @@ foreach (var hand in Listofhands)
     if (hand.table_limit == 8) eightmax++;
 }
 System.Console.WriteLine("8 MAX : " +eightmax);
- float minstack = 0;
-float maxstack = 500f;
+ float minstack = 18f;
+float maxstack = 22f;
 
 
 RFItwo.Calculate_RFI(Listofhands,minstack,maxstack);

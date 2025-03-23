@@ -18,7 +18,7 @@ public class DefPlayerSeat
         {
             if (hand[j].Contains($"Seat {button_seat}"))
             {
-                button_seat = j;
+                button_seat = j-1;
                 break;
             }
         }
