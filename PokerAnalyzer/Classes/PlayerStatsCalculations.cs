@@ -1,6 +1,6 @@
 public class PlayerStatsCalculations
 {
-    public static float CalculateBlind(string[] hand, int index_holder)
+    public static float CalculateBigBlind(string[] hand, int index_holder)
 {
     int length = hand[index_holder + 1].IndexOf(')') - 1 - hand[index_holder + 1].IndexOf('/');
     

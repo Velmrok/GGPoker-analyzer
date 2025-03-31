@@ -1,62 +1,67 @@
-public static class RFI{
-     public static void Calculate_RFI(List<Hand> hands,float minstack, float maxstack)
+public class RFI
+{
+    public static void Calculate_RFI(List<Hand> hands, float minstack, float maxstack, int bblessthan = 0)
     {
-        bool hasanyoneRFI = false;
-        
-        float[] allhands = { 0, 0, 0,    0, 0, 0,    0, 0, 0 };
-        float[] openedhands = { 0, 0, 0,    0, 0, 0,    0, 0, 0 };
+      
+        float[] allhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        float[] openshovedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        float[] openlimpedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        float[] openedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+     
         Dictionary<int, string> Position = HandCalculations.PositionNumbersDictionary;
-       
 
         foreach (var hand in hands)
         {
-            for (int i = 0; i < 8; i++)
+            if (hand.blind < bblessthan) continue;
+
+
+            int changer = 9 - hand.table_limit;
+            for (int i = 0; i < 8 - changer; i++)
             {
-                if (hand.ListofPlayers["sb"].action == Action.Limp &&
-            hand.ListofPlayers["sb"].bb_stack > minstack &&
-            hand.ListofPlayers["sb"].bb_stack < maxstack)
+                Player player = hand.ListofPlayers[Position[i + changer]];
+                Action playeraction = player.action;
+                if (player.bb_stack > minstack && player.bb_stack < maxstack)
                 {
-                    allhands[7]++;
-                    break;
-                }
-                if (hand.ListofPlayers.ContainsKey(Position[i]) &&
-            hand.ListofPlayers[Position[i]].bb_stack > minstack &&
-            hand.ListofPlayers[Position[i]].bb_stack < maxstack
-            )
-                {
-
-
-                    if (hand.ListofPlayers.ContainsKey(Position[i]) &&
-                hand.ListofPlayers[Position[i]].action == Action.RFI)
+                    if (player.name == "Hero") break; // Hero opens
+                    if (playeraction == Action.OpenShove) // Player openshove action
                     {
-                        hasanyoneRFI = true;
-                        openedhands[i]++;
-                        for (int j = 9 - hand.table_limit; j < i + 1; j++)
-                        {
-                            allhands[j]++;
-                        }
+                        openshovedhands[i + changer]++;
+                        break;
                     }
-
-
+                    if (playeraction == Action.Call || playeraction==Action.Limp)// Player limps + on SB
+                    {
+                        openlimpedhands[i + changer]++; 
+                        break;
+                    } 
+                    if (playeraction == Action.Fold) allhands[i + changer]++; // Player folds
+                  
+                    if (playeraction == Action.RFI)
+                    {
+                        openedhands[i + changer]++;
+                        allhands[i + changer]++;
+                        break;
+                    }
                 }
+                if (playeraction == Action.RFI || playeraction == Action.Limp) break;
+             
+
             }
-            if (!hasanyoneRFI && !(hand.ListofPlayers["sb"].action == Action.Limp) &&
-             hand.ListofPlayers["sb"].bb_stack > minstack &&
-            hand.ListofPlayers["sb"].bb_stack < maxstack)
-            {
-                for (int j = 9 - hand.table_limit; j < 8; j++)
-                {
-                    allhands[j]++;
-                }
-            }
+
 
         }
-        for (int i = 0; i < 9; i++)
+        System.Console.WriteLine();
+        System.Console.WriteLine("Blinds more than :" + bblessthan/2 + " / "+bblessthan);
+        System.Console.WriteLine(minstack+"bb - "+maxstack+"bb");
+        for (int i = 0; i < 8; i++)
         {
             System.Console.WriteLine($"{Position[i]}" +
-            $"    RFI - {openedhands[i] * 100f/allhands[i]} %"+
-            $"              //////           opened:  {openedhands[i]}      all : {allhands[i]}" );
+            $"  RFI - {Math.Round(openedhands[i] * 100f / allhands[i], 1)} %" +
+            $"       Open shove   - {Math.Round(openshovedhands[i] * 100f / allhands[i], 1)} %   "+ 
+            $"        Open limp   - {Math.Round(openlimpedhands[i] * 100f / allhands[i], 1)} %     //////        opened:  {openedhands[i]}      all : {allhands[i]}");
         }
        
+
+
+
     }
 }

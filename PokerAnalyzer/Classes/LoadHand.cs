@@ -34,7 +34,7 @@ public class LoadHand
                         if (LoadedFile[j].Contains("FLOP")) isthereflop = true;
                     }
                     //flop_index = !isthereflop ? -1 : flop_index;
-                    hand = new(temp, flop_index, preflop_index, PlayerStatsCalculations.CalculateBlind(LoadedFile, index_holder));
+                    hand = new(temp, flop_index, preflop_index, PlayerStatsCalculations.CalculateBigBlind(LoadedFile, index_holder));
                     Listofhands.Add(hand);
                     i++;
                     index_holder = i;
@@ -54,11 +54,10 @@ static void FindIndexes(ref int flop_index, ref int preflop_index, int j, int i,
     if (j != i - 1)
         {
             if (LoadedFile[j].Contains("Dealt") && !LoadedFile[j + 1].Contains("Dealt")) preflop_index = j - index_holder;
-            if (LoadedFile[j].Contains("FLOP"))
-            {
-                if (LoadedFile[j - 1].Contains("shows")) flop_index = j-1;
-                else flop_index = j - index_holder;
-            }
+            if (LoadedFile[j].Contains("FLOP"))flop_index = j - index_holder; // flop index will contain line before *** FLOP ***
+            
+              
+            
 
 
 

@@ -32,6 +32,7 @@ public static class HandCalculations
             {
                 if (hand[i].Contains("all-in"))
                 {
+                    
                     handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.OpenShove;
                     break;
                 }

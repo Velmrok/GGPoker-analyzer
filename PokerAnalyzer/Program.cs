@@ -11,12 +11,13 @@ foreach (var hand in Listofhands)
 
     if (hand.table_limit == 8) eightmax++;
 }
-System.Console.WriteLine("8 MAX : " +eightmax);
- float minstack = 18f;
-float maxstack = 22f;
 
 
-RFItwo.Calculate_RFI(Listofhands,minstack,maxstack);
+float minstack = 0f;
+float maxstack = 15f;
+int bigblindmorethan = 0;
+
+RFI.Calculate_RFI(Listofhands,minstack,maxstack,bigblindmorethan);
 System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
 
 
