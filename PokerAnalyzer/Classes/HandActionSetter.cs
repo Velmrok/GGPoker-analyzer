@@ -57,8 +57,19 @@ public static class HandCalculations
                 if (hand[i].Contains("all-in"))
                 {
                     handOBJ.ListofPlayers[PositionNumbersDictionary[i - handOBJ.preflop_index + changer]].action = Action.OpenShove;
-                    
-                }else handOBJ.ListofPlayers["sb"].action = Action.Limp;
+
+                }
+                else
+                {
+                    handOBJ.ListofPlayers["sb"].action = Action.Limp;
+                    foreach (var item in hand)
+                    {
+                        System.Console.WriteLine(item);
+                    }
+                    if (hand[i + 1].Contains("raise")) handOBJ.ListofPlayers["bb"].action = Action.BBraise;
+                    else if (hand[i + 1].Contains("call")) handOBJ.ListofPlayers["bb"].action = Action.Call;
+                    else handOBJ.ListofPlayers["bb"].action = Action.Fold;
+                }
                 
             }
 

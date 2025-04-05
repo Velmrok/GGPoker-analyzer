@@ -6,6 +6,7 @@ public enum Action
     Tbet,
     Fbet,
     Limp,
-    OpenShove
+    OpenShove,
+    BBraise
 
 }

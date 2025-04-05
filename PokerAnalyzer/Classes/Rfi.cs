@@ -2,16 +2,17 @@ public class RFI
 {
     public static void Calculate_RFI(List<Hand> hands, float minstack, float maxstack, int bblessthan = 0)
     {
-      
+
         float[] allhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         float[] openshovedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         float[] openlimpedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         float[] openedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-     
+        
         Dictionary<int, string> Position = HandCalculations.PositionNumbersDictionary;
 
         foreach (var hand in hands)
         {
+            
             if (hand.blind < bblessthan) continue;
 
 
@@ -28,13 +29,13 @@ public class RFI
                         openshovedhands[i + changer]++;
                         break;
                     }
-                    if (playeraction == Action.Call || playeraction==Action.Limp)// Player limps + on SB
+                    if (playeraction == Action.Call || playeraction == Action.Limp)// Player limps + on SB
                     {
-                        openlimpedhands[i + changer]++; 
+                        openlimpedhands[i + changer]++;
                         break;
-                    } 
+                    }
                     if (playeraction == Action.Fold) allhands[i + changer]++; // Player folds
-                  
+
                     if (playeraction == Action.RFI)
                     {
                         openedhands[i + changer]++;
@@ -43,25 +44,28 @@ public class RFI
                     }
                 }
                 if (playeraction == Action.RFI || playeraction == Action.Limp) break;
-             
+
 
             }
 
 
         }
         System.Console.WriteLine();
-        System.Console.WriteLine("Blinds more than :" + bblessthan/2 + " / "+bblessthan);
-        System.Console.WriteLine(minstack+"bb - "+maxstack+"bb");
+        System.Console.WriteLine("Blinds more than :" + bblessthan / 2 + " / " + bblessthan);
+        System.Console.WriteLine(minstack + "bb - " + maxstack + "bb");
         for (int i = 0; i < 8; i++)
         {
             System.Console.WriteLine($"{Position[i]}" +
             $"  RFI - {Math.Round(openedhands[i] * 100f / allhands[i], 1)} %" +
-            $"       Open shove   - {Math.Round(openshovedhands[i] * 100f / allhands[i], 1)} %   "+ 
+            $"       Open shove   - {Math.Round(openshovedhands[i] * 100f / allhands[i], 1)} %   " +
             $"        Open limp   - {Math.Round(openlimpedhands[i] * 100f / allhands[i], 1)} %     //////        opened:  {openedhands[i]}      all : {allhands[i]}");
         }
-       
+
 
 
 
     }
+
+
+  
 }

@@ -2,15 +2,15 @@ using System.Text.RegularExpressions;
 
 public class Hand
 {
-    public Hand(string[] _hand, int _flop_index, int _preflop_index, float _blind)
+    public Hand(string[] _hand, int _flop_index, int _preflop_index, float _blind, bool _isthereflop)
     {
 
         flop_index = _flop_index;
         preflop_index = _preflop_index;
         hand = new string[_hand.Length];
         hand = _hand;
-        blind = _blind;
-        
+        blind = _blind; // 1 BIG BLIND
+        isthereflop = _isthereflop;
 
         FindPlayerCount();
         tag = LoadTag();
@@ -25,7 +25,7 @@ public class Hand
     public int preflop_index;
     public float stack_bb;
     public float blind;
-
+    public bool isthereflop;
     string LoadTag()
     {
         return hand[0].Substring(11, 13);

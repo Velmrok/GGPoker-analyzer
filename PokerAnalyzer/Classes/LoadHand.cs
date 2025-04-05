@@ -1,9 +1,10 @@
 public class LoadHand
 {
     static string[] LoadedFile = LoadFiles.LoadAllFilesToArray();
+    static bool isthereflop = false;
     public static List<Hand> LoadHands()
     {
-        
+
         List<Hand> Listofhands = new();
         Hand hand;
         int index_holder = -1;
@@ -13,7 +14,7 @@ public class LoadHand
 
         for (int i = 0; i < LoadedFile.Length; i++)
         {
-            bool isthereflop = false;
+
             if (LoadedFile[i] == "")
             {
                 if (LoadedFile[index_holder + 1].Contains("ShortDeck") || LoadedFile[index_holder + 1].Contains("PLO"))
@@ -27,14 +28,16 @@ public class LoadHand
                 {
                     int length = i - index_holder;
                     string[] temp = new string[length];
+                    isthereflop = false;
                     for (int j = index_holder + 1; j < i; j++)
                     {
                         temp[j - index_holder - 1] = LoadedFile[j];
                         FindIndexes(ref flop_index, ref preflop_index, j, i, index_holder);
                         if (LoadedFile[j].Contains("FLOP")) isthereflop = true;
                     }
+
                     //flop_index = !isthereflop ? -1 : flop_index;
-                    hand = new(temp, flop_index, preflop_index, PlayerStatsCalculations.CalculateBigBlind(LoadedFile, index_holder));
+                    hand = new(temp, flop_index, preflop_index, PlayerStatsCalculations.CalculateBigBlind(LoadedFile, index_holder),isthereflop);
                     Listofhands.Add(hand);
                     i++;
                     index_holder = i;
@@ -55,7 +58,7 @@ static void FindIndexes(ref int flop_index, ref int preflop_index, int j, int i,
         {
             if (LoadedFile[j].Contains("Dealt") && !LoadedFile[j + 1].Contains("Dealt")) preflop_index = j - index_holder;
             if (LoadedFile[j].Contains("FLOP"))flop_index = j - index_holder; // flop index will contain line before *** FLOP ***
-            
+           
               
             
 

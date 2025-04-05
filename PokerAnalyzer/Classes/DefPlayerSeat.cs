@@ -24,29 +24,41 @@ public class DefPlayerSeat
         }
         
         if (seat < button_seat) seat += table_limit;
-        //System.Console.WriteLine(seat - button_seat);
-        switch (seat - button_seat)
+        if (table_limit == 2)
         {
-            case 0:
-                return "btn";
-            case 1:
-                return "sb";
-            case 2:
-                return "bb";
-            case 3:
-                return Position[9-table_limit];
-            case 4:
-               return Position[10-table_limit];
-            case 5:
-             return Position[11-table_limit];
-            case 6:
-               return Position[12-table_limit];
-            case 7:
-                return Position[13 - table_limit];
-            case 8:
-                return "co";
-            default:
-                break;
+            switch (seat - button_seat)
+            {
+                case 0:
+                    return "sb";
+                case 1:
+                    return "bb";
+            }
+        }
+        else
+        {
+            switch (seat - button_seat)
+            {
+                case 0:
+                    return "btn";
+                case 1:
+                    return "sb";
+                case 2:
+                    return "bb";
+                case 3:
+                    return Position[9 - table_limit];
+                case 4:
+                    return Position[10 - table_limit];
+                case 5:
+                    return Position[11 - table_limit];
+                case 6:
+                    return Position[12 - table_limit];
+                case 7:
+                    return Position[13 - table_limit];
+                case 8:
+                    return "co";
+                default:
+                    break;
+            }
         }
         return "ERROR";
         
