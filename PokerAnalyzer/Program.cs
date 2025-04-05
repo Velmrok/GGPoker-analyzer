@@ -13,8 +13,8 @@ foreach (var hand in Listofhands)
 }
 
 
-float minstack = 15f;
-float maxstack = 20f;
+float minstack = 30f;
+float maxstack = 50f;
 int bigblindmorethan = 0;
 
 RFI.Calculate_RFI(Listofhands, minstack, maxstack, bigblindmorethan);

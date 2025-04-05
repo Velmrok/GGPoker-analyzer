@@ -10,12 +10,12 @@ public static class CalculateSpecific
         {
             bool isitlimpedpot = false;
 
-
+        
             foreach (var p in hand.ListofPlayers)
             {
                
-                //if(p.Value.action == Action.Limp)System.Console.WriteLine(p.Value.action + "   " + hand.ListofPlayers["bb"].action);
-                if (p.Value.action == Action.Limp && hand.ListofPlayers["bb"].action == Action.Call) isitlimpedpot = true; break;
+              
+                if (p.Value.action == Action.Limp && hand.ListofPlayers["bb"].action == Action.Call) { isitlimpedpot = true; break; }
 
             }
 
@@ -51,7 +51,7 @@ public static class CalculateSpecific
 
                         int index = flop[2].LastIndexOf('s') + 2;
                         int betnum = int.Parse(flop[2].Substring(index).Replace(",", "").Replace(" ", "")); /// find bets X,XXX where X are numbers
-                        isbetclosetopot = betnum / hand.blind > 2f && betnum / hand.blind < 4f;
+                        isbetclosetopot = betnum / hand.blind > 2.8f && betnum / hand.blind < 3.4f;
                     }
 
 
@@ -73,7 +73,7 @@ public static class CalculateSpecific
 
         }
         int all = sbfoldscounter + sbNotfoldscounter;
-        System.Console.WriteLine("SB folds to bet after     LIMP CALL ->CHECK CHECK -> BET FOLD " +
+        System.Console.WriteLine("SB folds to bet after     LIMP CHECK ->CHECK CHECK -> BET FOLD " +
              $"  :    {Math.Round(sbfoldscounter * 100f / all, 1)} %   //////      folded : {sbfoldscounter}   all : {all}");
 
     }
