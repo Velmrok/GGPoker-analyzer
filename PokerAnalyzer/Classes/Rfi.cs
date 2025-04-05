@@ -23,15 +23,17 @@ public class RFI
                 Action playeraction = player.action;
                 if (player.bb_stack > minstack && player.bb_stack < maxstack)
                 {
-                    if (player.name == "Hero") break; // Hero opens
+                    if (player.name == "Hero" && player.action!=Action.Fold) break; // Hero opens
                     if (playeraction == Action.OpenShove) // Player openshove action
                     {
                         openshovedhands[i + changer]++;
+                        allhands[i + changer]++;
                         break;
                     }
                     if (playeraction == Action.Call || playeraction == Action.Limp)// Player limps + on SB
                     {
                         openlimpedhands[i + changer]++;
+                        allhands[i + changer]++;
                         break;
                     }
                     if (playeraction == Action.Fold) allhands[i + changer]++; // Player folds

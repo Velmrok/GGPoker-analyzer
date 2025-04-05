@@ -62,12 +62,8 @@ public static class HandCalculations
                 else
                 {
                     handOBJ.ListofPlayers["sb"].action = Action.Limp;
-                    foreach (var item in hand)
-                    {
-                        System.Console.WriteLine(item);
-                    }
                     if (hand[i + 1].Contains("raise")) handOBJ.ListofPlayers["bb"].action = Action.BBraise;
-                    else if (hand[i + 1].Contains("call")) handOBJ.ListofPlayers["bb"].action = Action.Call;
+                    else if (hand[i + 1].Contains("checks")) handOBJ.ListofPlayers["bb"].action = Action.Call;
                     else handOBJ.ListofPlayers["bb"].action = Action.Fold;
                 }
                 

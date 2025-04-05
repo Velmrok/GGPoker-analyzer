@@ -3,24 +3,26 @@ public static class CalculateSpecific
 
     public static void Fold_to_sb_pot_bet_after_XX(List<Hand> handlist)
     {
-        int limpcount = 0;
+
         int sbfoldscounter = 0;
         int sbNotfoldscounter = 0;
         foreach (var hand in handlist)
         {
             bool isitlimpedpot = false;
+
+
             foreach (var p in hand.ListofPlayers)
             {
-                if (p.Value.action == Action.Limp && hand.ListofPlayers["bb"].action == Action.Call  ) isitlimpedpot = true; break;
+               
+                //if(p.Value.action == Action.Limp)System.Console.WriteLine(p.Value.action + "   " + hand.ListofPlayers["bb"].action);
+                if (p.Value.action == Action.Limp && hand.ListofPlayers["bb"].action == Action.Call) isitlimpedpot = true; break;
+
             }
-        
+
+            
             if (hand.isthereflop && isitlimpedpot)
             {
 
-                foreach (var item in hand.hand)
-                {
-                    System.Console.WriteLine(item);
-                }
                 string[] flop = {
         hand.hand[hand.flop_index], // after ** flop, first action
         hand.hand[hand.flop_index+1], // second action
@@ -73,7 +75,7 @@ public static class CalculateSpecific
         int all = sbfoldscounter + sbNotfoldscounter;
         System.Console.WriteLine("SB folds to bet after     LIMP CALL ->CHECK CHECK -> BET FOLD " +
              $"  :    {Math.Round(sbfoldscounter * 100f / all, 1)} %   //////      folded : {sbfoldscounter}   all : {all}");
-             
+
     }
 }
 /*
