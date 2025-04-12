@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj": {}
+    "C:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj": {}
   },
   "projects": {
-    "c:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj": {
+    "C:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj",
         "projectName": "PokerAnalyzer",
-        "projectPath": "c:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj",
+        "projectPath": "C:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\PokerAnalyzer.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\obj\\",
+        "outputPath": "C:\\Users\\pc\\Desktop\\PokerAnalyzer\\PokerAnalyzer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config"

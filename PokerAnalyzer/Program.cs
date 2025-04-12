@@ -13,12 +13,12 @@ foreach (var hand in Listofhands)
 }
 
 
-float minstack = 30f;
-float maxstack = 50f;
+float minstack = 50f;
+float maxstack = 100f;
 int bigblindmorethan = 0;
 
-RFI.Calculate_RFI(Listofhands, minstack, maxstack, bigblindmorethan);
-CalculateSpecific.Fold_to_sb_pot_bet_after_XX(Listofhands);
+RFI.Calculate_RFI(Listofhands, minstack, maxstack, bigblindmorethan,true);
+//CalculateSpecific.Fold_to_sb_pot_bet_after_XX(Listofhands);
 System.Console.WriteLine($"Loaded {Listofhands.Count} hands");
 
 

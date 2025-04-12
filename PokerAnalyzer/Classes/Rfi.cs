@@ -1,19 +1,27 @@
 public class RFI
 {
-    public static void Calculate_RFI(List<Hand> hands, float minstack, float maxstack, int bblessthan = 0)
+    public static void Calculate_RFI(List<Hand> hands, float minstack, float maxstack, int bbmorethan = 0, bool onlyhero=false)
     {
+        var positionStats = new Dictionary<int, PositionStats>();
+        var positionStatsHero =  new Dictionary<int, PositionStats>();
+        for (int i = 0; i < 9; i++)
+        {
+            positionStats[i] = new();
+            positionStatsHero[i] = new();
+        }
 
-        float[] allhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] openshovedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] openlimpedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] openedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        
+
+        float[] Heroallhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        float[] Heroopenshovedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        float[] Heroopenlimpedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        float[] Heroopenedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
         Dictionary<int, string> Position = HandCalculations.PositionNumbersDictionary;
 
         foreach (var hand in hands)
         {
-            
-            if (hand.blind < bblessthan) continue;
+
+            if (hand.blind < bbmorethan) continue;
 
 
             int changer = 9 - hand.table_limit;
@@ -23,25 +31,50 @@ public class RFI
                 Action playeraction = player.action;
                 if (player.bb_stack > minstack && player.bb_stack < maxstack)
                 {
-                    if (player.name == "Hero" && player.action!=Action.Fold) break; // Hero opens
-                    if (playeraction == Action.OpenShove) // Player openshove action
-                    {
-                        openshovedhands[i + changer]++;
-                        allhands[i + changer]++;
-                        break;
-                    }
-                    if (playeraction == Action.Call || playeraction == Action.Limp)// Player limps + on SB
-                    {
-                        openlimpedhands[i + changer]++;
-                        allhands[i + changer]++;
-                        break;
-                    }
-                    if (playeraction == Action.Fold) allhands[i + changer]++; // Player folds
+                    PositionStats  stats = positionStats[i + changer];
+                    PositionStats herostats = positionStatsHero[i + changer];
+                    if (player.name == "Hero") {
+                        herostats.AllHands++;
+                        switch (player.action)
+                        {
+                            case Action.Call:
+                                herostats.OpenLimpedHands++;
+                                break;
+                            case Action.OpenShove:
+                                herostats.OpenShovedHands++;
+                                break;
+                            case Action.RFI:
+                                herostats.OpenedHands++;
+                                break;
+                            case Action.Limp:
+                                herostats.OpenLimpedHands++;
+                                break;
 
-                    if (playeraction == Action.RFI)
+                        }
+                    }
+                    if (player.name == "Hero" && player.action != Action.Fold) break;
+ 
+                 
+                    if (playeraction == Action.OpenShove)
                     {
-                        openedhands[i + changer]++;
-                        allhands[i + changer]++;
+                        stats.OpenShovedHands++;
+                        stats.AllHands++;
+                        break;
+                    }
+                    else if (playeraction == Action.Call || playeraction == Action.Limp)
+                    {
+                        stats.OpenLimpedHands++;
+                        stats.AllHands++;
+                        break;
+                    }
+                    else if (playeraction == Action.Fold)
+                    {
+                        stats.AllHands++;
+                    }
+                    else if (playeraction == Action.RFI)
+                    {
+                        stats.OpenedHands++;
+                        stats.AllHands++;
                         break;
                     }
                 }
@@ -53,15 +86,26 @@ public class RFI
 
         }
         System.Console.WriteLine();
-        System.Console.WriteLine("Blinds more than :" + bblessthan / 2 + " / " + bblessthan);
+        System.Console.WriteLine("Blinds more than :" + bbmorethan / 2 + " / " + bbmorethan);
         System.Console.WriteLine(minstack + "bb - " + maxstack + "bb");
-        for (int i = 0; i < 8; i++)
+        if (onlyhero)
         {
-            System.Console.WriteLine($"{Position[i]}" +
-            $"  RFI - {Math.Round(openedhands[i] * 100f / allhands[i], 1)} %" +
-            $"       Open shove   - {Math.Round(openshovedhands[i] * 100f / allhands[i], 1)} %   " +
-            $"        Open limp   - {Math.Round(openlimpedhands[i] * 100f / allhands[i], 1)} %     //////        opened:  {openedhands[i]}      all : {allhands[i]}");
+            foreach (var kv in positionStatsHero)
+        {
+            string posName = Position.ContainsKey(kv.Key) ? Position[kv.Key] : $"Pos{kv.Key}";
+            Console.WriteLine($"{posName}  {kv.Value}");
         }
+        }
+        else
+        {
+              foreach (var kv in positionStats)
+        {
+            string posName = Position.ContainsKey(kv.Key) ? Position[kv.Key] : $"Pos{kv.Key}";
+            Console.WriteLine($"{posName}  {kv.Value}");
+        }
+            
+        }
+      
 
 
 
@@ -69,5 +113,5 @@ public class RFI
     }
 
 
-  
+
 }
