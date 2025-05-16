@@ -10,12 +10,6 @@ public class RFI
             positionStatsHero[i] = new();
         }
 
-
-        float[] Heroallhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] Heroopenshovedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] Heroopenlimpedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] Heroopenedhands = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
         Dictionary<int, string> Position = HandCalculations.PositionNumbersDictionary;
 
         foreach (var hand in hands)
@@ -78,7 +72,8 @@ public class RFI
                         break;
                     }
                 }
-                if (playeraction == Action.RFI || playeraction == Action.Limp) break;
+                if (playeraction == Action.RFI || playeraction == Action.Limp
+                 || playeraction == Action.Call || playeraction==Action.OpenShove ) break;
 
 
             }

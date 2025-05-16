@@ -13,7 +13,7 @@ public class PositionStats
     {
         return $"RFI: {Math.Round(RFI_Percentage, 1)}% | " +
                $"Shove: {Math.Round(OpenShove_Percentage, 1)}% | " +
-               $"Limp: {Math.Round(OpenLimp_Percentage, 1)}% | " +
-               $"Opened: {OpenedHands} / All: {AllHands}";
+               $"Limp: {Math.Round(OpenLimp_Percentage, 4)}% | " +
+               $"Opened: {OpenedHands+OpenLimpedHands+OpenShovedHands} / All: {AllHands}";
     }
 }

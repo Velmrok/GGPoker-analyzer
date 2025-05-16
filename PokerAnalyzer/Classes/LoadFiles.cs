@@ -9,7 +9,7 @@ public class LoadFiles
     string[] files = Directory.GetFiles(folderPath, "*.txt");
 
     var allLines = new List<string>();
-
+    
     foreach (string path in files)
     {
         string[] lines = File.ReadAllLines(path); // Wczytuje cały plik do pamięci
